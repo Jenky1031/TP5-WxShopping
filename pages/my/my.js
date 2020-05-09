@@ -225,10 +225,12 @@ Page({
                     mobile: res.telNumber,
                     totalDetail: address.setAddressInfo(res)
                 };
+                console.log(addressInfo)
                 if (res.telNumber) {
                     that._bindAddressInfo(addressInfo);
                     //保存地址
                     address.submitAddress(res, (flag) => {
+                        console.log(flag)
                         if (!flag) {
                             that.showTips('操作提示', '地址信息更新失败！');
                         }

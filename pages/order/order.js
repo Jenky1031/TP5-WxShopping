@@ -32,10 +32,12 @@ Page({
      */
     onLoad: function(options) {
         const {
-            from
+            from,
+            id
         } = options;
         this.setData({
-            from
+            from,
+            id
         })
         if (from === "cart") {
             this._fromCart(options.account);
@@ -217,6 +219,9 @@ Page({
                     };
                     order.request(params);
                 }
+                if (this.data.orderStatus === 1) {
+                    order.execSetStorageSync(true)
+                }
                 wx.navigateTo({
                     url: "../pay-result/pay-result?id=" +
                         id +
@@ -224,8 +229,8 @@ Page({
                         flag +
                         "&from=" + this.data.from,
                 });
-                return;
             }
+            return;
         }
         var that = this;
         order.execPay(id, (statusCode) => {
